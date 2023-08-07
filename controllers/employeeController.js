@@ -28,3 +28,40 @@ exports.getEmployees = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.deleteEmployee = async (req, res) => {
+  try {
+    const { employeeId } = req.params;
+    
+    const deletedEmployee = await Employee.findByIdAndDelete(employeeId);
+
+    if (!deletedEmployee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    res.json({ message: 'Employee deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.editEmployee = async (req, res) => {
+  try {
+    const { employeeId } = req.params;
+    const updatedData = req.body;
+
+    const updatedEmployee = await Employee.findByIdAndUpdate(
+      employeeId,
+      updatedData,
+      { new: true }
+    );
+
+    if (!updatedEmployee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    res.json(updatedEmployee);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
