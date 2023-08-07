@@ -5,7 +5,7 @@ const User = require("../models/User");
 exports.signup = async (req, res) => {
   try {
     const { email, password } = req.body;
-    
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: "Email already exists" });
@@ -18,19 +18,22 @@ exports.signup = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ message: "Authentication failed" });
+      return res
+        .status(401)
+        .json({ message: "Authentication failed: User not found" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Authentication failed" });
+      return res
+        .status(401)
+        .json({ message: "Authentication failed: Invalid password" });
     }
 
     const token = jwt.sign({ userId: user._id }, "anurag", { expiresIn: "1h" });

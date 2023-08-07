@@ -34,6 +34,4 @@ app.post('/employee/create', authMiddleware, employeeController.createEmployee);
 app.get('/employee', authMiddleware, employeeController.getEmployees);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT);
