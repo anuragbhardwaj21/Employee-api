@@ -32,6 +32,8 @@ app.post('/signup', authController.signup);
 app.post('/login', authController.login);
 app.post('/employee/create', authMiddleware, employeeController.createEmployee);
 app.get('/employee', authMiddleware, employeeController.getEmployees);
+app.put('/employee/edit/:employeeId', authMiddleware, employeeController.editEmployee);
+app.delete('/employee/delete/:employeeId', authMiddleware, employeeController.deleteEmployee);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
