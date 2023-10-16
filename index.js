@@ -18,7 +18,7 @@ app.use(express.json());
 
 mongoose
   .connect(
-    `mongodb+srv://anurag2361:anuraggg@anurag2361.1pepyj9.mongodb.net/?retryWrites=true&w=majority`,
+    `mongodb+srv://ppcommercial31:punit12@cluster0.ogkgxal.mongodb.net/mernstack?retryWrites=true&w=majority&appName=AtlasApp`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
